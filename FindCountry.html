@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .searchBox {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .searchBox div {
+            margin: 10px;
+        }
+
+        .searchBox input {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .searchBox button {
+            padding: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .country {
+            display: flex;
+            margin-top: 20px;
+            flex-direction: column;
+        }
+
+        .country h1 {
+            margin: 10px;
+        }
+
+        .country span {
+            color: red;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li {
+            margin: 5px;
+        }
+
+        h3 {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="searchBox">
+        <div>
+            <label for="">Country Name</label>
+            <input type="text" name="" id="countryName">
+            <div>
+                <button onclick="findCountry()">Find</button>
+            </div>
+        </div>
+    </div>
+    <div class="country">
+<h1>Flag : <img id="flag" src="" alt=""></h1>
+<h1> Country Name: <span id="Name"></span></h1>
+<h1> Country Region: <span id="countryRegion"></span></h1>
+<h1> Country Capital: <span id="countryCapital"></span></h1>
+<h1> Country Borders: <span id="countryBorders"></span></h1>
+<h1> Population: <span id="countryPopulation"></span></h1>
+
+    </div>
+</body>
+
+<script>
+    function findCountry(){
+        var countryName = document.getElementById("countryName").value.toLowerCase()
+
+        fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+        .then(res=> res.json())
+     
+        .then(result =>{
+            document.getElementById("flag").src = result[0].flags.png
+
+            document.getElementById("Name").innerHTML = result[0].name.common
+            document.getElementById("countryRegion").innerHTML = result[0].region
+            document.getElementById("countryCapital").innerHTML = result[0].capital
+            document.getElementById("countryBorders").innerHTML = result[0].borders
+            document.getElementById("countryPopulation").innerHTML = result[0].population
+            
+        })
+    }
+</script>
+
+</html>
